@@ -1,6 +1,7 @@
 from financemgr.root import RootWindow
 from financemgr.ui import SelectUser 
 from financemgr.ui import UserUi 
+from financemgr.ui import Frames
 
 class AppController():
     def __init__(self):
@@ -8,7 +9,7 @@ class AppController():
         self.root = RootWindow(self)
         self.frames = self.root.init_frames((SelectUser, UserUi))
         self.current_frame = None 
-        self.change_ui("SelectUser")
+        self.change_ui(Frames.SelectUser)
         self.current_user = None 
 
     def get_users(self):
@@ -24,19 +25,18 @@ class AppController():
     def open_user_by_name(self, name):
         user = self.db.query(User).filter(User.name == name).first()
         self.current_user = user 
-        self.change_ui("UserUi")
+        self.change_ui(Frames.CurrentUser)
 
     def load_current_user(self, name):
         """ Loads current user from controller into frame"""
         assert self.current_user is not None, "Current User cannot be None"
-
-        
 
     def change_ui(self, name):
         if name in self.frames:
             if self.current_frame != None:
                 self.frames[self.current_frame].on_exit_frame_hook()
             self.current_frame = name 
-            self.root.show_frame(name)
-            self.frames[self.current_frame].on_enter_frame_hook()   
-        
+            frame = self.root.show_frame(name)
+            frame.on_enter_frame_hook()
+        else:
+            raise Exception(f"No UI frame with name: {name} found")

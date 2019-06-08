@@ -1,6 +1,6 @@
 import tkinter as tk 
 
-class UserUi(tk.Frame):
+class CurrentUser(tk.Frame):
     def __init__(self, parent, controller = None):
         super().__init__(parent)
         self.controller = controller 
