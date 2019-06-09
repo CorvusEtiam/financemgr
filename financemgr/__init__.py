@@ -14,3 +14,4 @@ logger.addHandler(log_handler)
 
 from financemgr.db import * 
 from financemgr.model import * 
+from financemgr.ui import * 
