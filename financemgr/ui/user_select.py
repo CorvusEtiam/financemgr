@@ -2,12 +2,12 @@ import tkinter as tk
 
 from financemgr.db import Session 
 from financemgr.model import User 
+from .frame import StackFrame 
 
-class SelectUser(tk.Frame):
+class SelectUser(StackFrame):
     DEFAULT_MENU_ITEM = "Select User"
     def __init__(self, parent, controller = None):
-        super().__init__(parent)
-        self.controller = controller 
+        super().__init__(parent, controller)
         self._cur_opt = tk.StringVar()
         self._users = self.controller.get_users()
 
@@ -51,7 +51,6 @@ class SelectUser(tk.Frame):
         pass 
         
     def on_enter_frame_hook(self):
-    #    self._cur_opt.set(SelectUser.DEFAULT_MENU_ITEM)
         pass 
 
     def on_read_cb(self):

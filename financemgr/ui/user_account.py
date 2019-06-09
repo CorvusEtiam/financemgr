@@ -1,9 +1,10 @@
-import tkinter as tk 
 
-class CurrentUser(tk.Frame):
+import tkinter as tk 
+from .frame import StackFrame
+
+class CurrentUser(StackFrame):
     def __init__(self, parent, controller = None):
-        super().__init__(parent)
-        self.controller = controller 
+        super().__init__(parent, controller)
 
     def on_exit_frame_hook(self):
         pass 
