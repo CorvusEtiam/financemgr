@@ -1,6 +1,6 @@
 import tkinter as tk 
 from tkinter import ttk 
-from .frame import StackFrame 
+from . import StackFrame 
 
 
 class EditUser(StackFrame):
@@ -32,6 +32,9 @@ class EditUser(StackFrame):
         pass
     
     def on_enter_frame_hook(self):
+        if self.controller.current_user == None:
+            ## will create new user
+            return 
         self._user_name.set(self.controller.current_user.name)
         accounts = self.controller.current_user.accounts
         self._account_count_lbl.config(text = "Number of account: {}".format(len(accounts)))

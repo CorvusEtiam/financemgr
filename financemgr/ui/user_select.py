@@ -2,7 +2,7 @@ import tkinter as tk
 
 from financemgr.db import Session 
 from financemgr.model import User 
-from .frame import StackFrame 
+from . import StackFrame 
 
 class SelectUser(StackFrame):
     DEFAULT_MENU_ITEM = "Select User"
@@ -51,19 +51,31 @@ class SelectUser(StackFrame):
         pass 
         
     def on_enter_frame_hook(self):
-        pass 
+        self._users = self.controller.get_users()
+        self._cur_opt.set(self._users[0])
+        menu = self._opt_menu["menu"]
+        menu.delete(0, "end")
+        for user in self._users:
+            menu.add_command(label = user.name, command  = tk._setit(self._cur_opt, user))
 
     def on_read_cb(self):
         user = self._cur_opt.get()
         if user != SelectUser.DEFAULT_MENU_ITEM:
-            self.controller.open_user_by_name(self._cur_opt.get())
-
+            user_ = self.controller.get_user_by_name(self._cur_opt.get())
+            if user_ is not None:
+                self.controller.current_user = user_ 
+                self.controller.change_ui("CurrentUser")
+            else:
+                raise Exception(f"Unknown User : {user}")
+            
     def on_create_click(self):
         self.controller.create_user()
 
     def on_update_click(self):
-        self.controller.update_user(username = self._cur_opt.get())
+        self.controller.current_user = self._cur_opt.get()
+        self.controller.update_user()
     
     def on_delete_click(self):
-        self.controller.delete_user(username = self._cur_opt.get())
+        self.controller.current_user = self._cur_opt.get()
+        self.controller.delete_user()
     
