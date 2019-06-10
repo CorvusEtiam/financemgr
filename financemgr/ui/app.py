@@ -1,11 +1,11 @@
-from .root import RootWindow
-from financemgr import Session
+from financemgr.db import Session 
+from financemgr.model import User 
 
-from financemgr.model import User
+from financemgr.ui.root import RootWindow 
+from financemgr.ui.user_edit import EditUser
+from financemgr.ui.user_select import SelectUser 
+from financemgr.ui.user_view import CurrentUser 
 
-from .user_select import SelectUser 
-from .user_account import CurrentUser 
-from .user_edit import EditUser 
 
 class AppController():
     def __init__(self):
@@ -15,7 +15,7 @@ class AppController():
         self.current_frame = None 
         self.current_user = None 
         
-        self.change_ui("SelectUser")
+        self.change_ui(SelectUser)
 
     def get_users(self):
         """List of usernames as [str]
@@ -37,15 +37,29 @@ class AppController():
     def run(self):
         self.root.mainloop()
 
-    def change_ui(self, name):
+    @property
+    def current_frame(self):
+        return self.root.top_frame
+
+    def change_ui(self, name_or_cls):
+        if type(name_or_cls) is type:
+            name = name_or_cls.__name__
+        else:
+            name = name_or_cls
+
         if name in self.frames:
             if self.current_frame != None:
                 self.frames[self.current_frame].on_exit_frame_hook()
-            self.current_frame = name 
             frame = self.root.show_frame(name)
             frame.on_enter_frame_hook()
+            self.root.push_frame(name)
         else:
             raise Exception(f"No UI frame with name: {name} found")
+
+    def previous_ui(self):   
+        current = self.root.pop_frame()
+        self.frames[current].on_exit_frame_hook()
+        self.frames[self.current_frame].on_enter_frame_hook()
 
     
 

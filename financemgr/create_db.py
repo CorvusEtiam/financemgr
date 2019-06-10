@@ -1,8 +1,11 @@
 import os 
 
-import logging as logger  
+from financemgr import logger 
+
 from financemgr.db import engine, Base, Session   
+
 from financemgr.config import DB_PATH
+
 from financemgr.model import User, Account, Record
 
 
@@ -49,11 +52,11 @@ def init_db():
                         record_value = record.get("value", 0.0)
                     )
                 )
-            logger.info("User: {} Account added -- {}".format(user, account["name"]))
+            logger.debug("User: {} Account added -- {}".format(user, account["name"]))
             user_.accounts.append(
                 account_
             )
-        logger.info("User added -- {}".format(user))
+        logger.debug("User added -- {}".format(user))
         session.add(user_)
     session.commit()
 

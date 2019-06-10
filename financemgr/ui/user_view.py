@@ -1,11 +1,11 @@
-
 import tkinter as tk 
-from financemgr.ui.custom.frame import StackFrame
+
 from tkinter.messagebox import askokcancel
 
+from financemgr.ui.stack import StackFrame
 
 class CurrentUser(StackFrame):
-    def __init__(self, master, controller = None):
+    def __init__(self, master, controller : "AppController" = None):
         super().__init__(master, controller)
         lbl_frame = tk.Frame(self)
         user_name_text = tk.Label(lbl_frame, text = "User: ", width = 20)
@@ -35,7 +35,7 @@ class CurrentUser(StackFrame):
 
     def on_select_user(self):
         self.controller.current_user = None 
-        self.controller.change_ui('SelectUser')
+        self.controller.previous_ui()
 
     def on_edit_user(self):
         self.controller.change_ui("EditUser")

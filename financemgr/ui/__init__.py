@@ -1,1 +1,3 @@
-from .controller import AppController
+from financemgr.ui.app import AppController 
+
+

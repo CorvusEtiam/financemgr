@@ -2,7 +2,8 @@ import tkinter as tk
 
 from financemgr.db import Session 
 from financemgr.model import User 
-from financemgr.ui.custom.frame import StackFrame 
+from financemgr.ui.stack import StackFrame 
+
 
 class SelectUser(StackFrame):
     DEFAULT_MENU_ITEM = "Select User"

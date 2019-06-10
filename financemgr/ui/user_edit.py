@@ -1,6 +1,7 @@
 import tkinter as tk 
 from tkinter import ttk 
-from financemgr.ui.custom.frame import StackFrame 
+
+from financemgr.ui.stack import StackFrame 
 
 
 class EditUser(StackFrame):
@@ -27,6 +28,8 @@ class EditUser(StackFrame):
         self._account_view.pack(side = tk.RIGHT)
 
         button_box.pack()
+
+        
 
     def on_exit_frame_hook(self):
         pass

@@ -1,6 +1,6 @@
 import tkinter as tk 
 
-class ScrollView(tk.Frame):
+class ScrollableFrame(tk.Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self._scrollbar = tk.Scrollbar(self, orient = tk.VERTICAL)
