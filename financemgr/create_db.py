@@ -1,6 +1,6 @@
 import os 
 
-from financemgr import logger 
+import logging as logger  
 from financemgr.db import engine, Base, Session   
 from financemgr.config import DB_PATH
 from financemgr.model import User, Account, Record

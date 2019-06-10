@@ -1,17 +1,13 @@
 import logging 
 
-
-logger = logging.getLogger(__name__)
-
-log_handler = logging.FileHandler('app.log')
-log_fmt = logging.Formatter("%(name)s - %(levelname)s - %(message)s")
-
-log_handler.setFormatter(log_fmt)
-
-logger.addHandler(log_handler)
-
-
+logging.basicConfig(filename = "app.log", level = logging.DEBUG)
 
 from financemgr.db import * 
 from financemgr.model import * 
 from financemgr.ui import * 
+
+from financemgr.ui import AppController
+
+def app():
+    test_app = AppController()
+    test_app.run()

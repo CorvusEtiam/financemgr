@@ -2,6 +2,7 @@ from .root import RootWindow
 from financemgr import Session
 
 from financemgr.model import User
+
 from .user_select import SelectUser 
 from .user_account import CurrentUser 
 from .user_edit import EditUser 
@@ -45,4 +46,6 @@ class AppController():
             frame.on_enter_frame_hook()
         else:
             raise Exception(f"No UI frame with name: {name} found")
+
+    
 

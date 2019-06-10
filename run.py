@@ -1,0 +1,3 @@
+import financemgr 
+
+financemgr.app()

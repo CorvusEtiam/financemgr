@@ -1,6 +1,6 @@
 import tkinter as tk 
 from tkinter import ttk 
-from . import StackFrame 
+from financemgr.ui.custom.frame import StackFrame 
 
 
 class EditUser(StackFrame):

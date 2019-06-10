@@ -2,12 +2,12 @@ import tkinter as tk
 
 from financemgr.db import Session 
 from financemgr.model import User 
-from . import StackFrame 
+from financemgr.ui.custom.frame import StackFrame 
 
 class SelectUser(StackFrame):
     DEFAULT_MENU_ITEM = "Select User"
-    def __init__(self, parent, controller = None):
-        super().__init__(parent, controller)
+    def __init__(self, master, controller = None):
+        super().__init__(master, controller)
         self._cur_opt = tk.StringVar()
         self._users = self.controller.get_users()
 
@@ -30,7 +30,7 @@ class SelectUser(StackFrame):
         
         self._opt_menu.pack()
         
-        self._btn = tk.Button(self, text = "Open", command = self.on_read_cb)
+        self._btn = tk.Button(self, text = "Show user", command = self.on_read_cb)
         
         self._btn.pack()
 
@@ -56,7 +56,7 @@ class SelectUser(StackFrame):
         menu = self._opt_menu["menu"]
         menu.delete(0, "end")
         for user in self._users:
-            menu.add_command(label = user.name, command  = tk._setit(self._cur_opt, user))
+            menu.add_command(label = user, command  = tk._setit(self._cur_opt, user))
 
     def on_read_cb(self):
         user = self._cur_opt.get()

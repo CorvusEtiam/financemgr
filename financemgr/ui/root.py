@@ -1,8 +1,13 @@
 import tkinter as tk 
 
+
+from financemgr.ui.custom.frame import StackFrame
+from financemgr import logging as logger 
+    
 class RootWindow(tk.Tk):
     def __init__(self, controller = None, *args, **kwargs):
-        tk.Tk.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
+        #tk.Tk.__init__(self, *args, **kwargs)
         # super().__init__()
         self.controller = controller
         # the container is where we'll stack a bunch of frames
@@ -15,10 +20,13 @@ class RootWindow(tk.Tk):
         self.container.grid_rowconfigure(0, weight=1)
         self.container.grid_columnconfigure(0, weight=1)
 
+
     def init_frames(self, frame_classes):
         frames = {}
         for klass in frame_classes:
-            frame = klass(parent=self.container, controller=self.controller)
+            assert issubclass(klass, StackFrame), "Frame have to be subclass of StackFrame"
+            logger.info("Instance: {}".format(klass.__name__))
+            frame = klass(master = self.container, controller=self.controller)
             name  = klass.__name__ 
             frames[name] = frame 
             
